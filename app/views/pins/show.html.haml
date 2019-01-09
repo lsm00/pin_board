@@ -1,0 +1,12 @@
+= image_tag @pin.image.url(:medium)
+.col-md-6.col-md.offset-3
+  %h1= @pin.title
+  %p= @pin.description
+  %p
+  Submitted by User:
+  = mail_to @pin.user.email
+  %p
+  =link_to "Back", root_path, class: "btn btn-primary"
+  =link_to "Edit", edit_pin_path, class: "btn btn-primary"
+  =link_to "Delete", pin_path, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-primary"
+  
