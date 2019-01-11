@@ -6,7 +6,9 @@
   Submitted by User:
   = mail_to @pin.user.email
   %p
-  =link_to "Back", root_path, class: "btn btn-primary"
-  =link_to "Edit", edit_pin_path, class: "btn btn-primary"
-  =link_to "Delete", pin_path, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-primary"
-  
+  .col-md-3
+    =link_to "Back", root_path, class: "btn btn-primary"
+  - if current_user == @pin.user
+    =link_to "Edit", edit_pin_path, class: "btn btn-primary"
+    =link_to "Delete", pin_path, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-primary"
+  - else

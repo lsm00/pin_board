@@ -1,4 +1,5 @@
 class PinsController < ApplicationController
+  # before_action :authenticate_user!
   before_action :find_pin, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -23,7 +24,12 @@ class PinsController < ApplicationController
 
 
   def edit
-    @pin = Pin.find(params[:id])
+    if current_user == @pin.user   #checks if current user is owner of the pin
+     @pin = Pin.find(params[:id])
+    else
+     flash[:danger] = "Wrong user! You are not allowed to do this!"
+     redirect_to @pin
+    end
   end
 
   def update
@@ -35,8 +41,13 @@ class PinsController < ApplicationController
   end
 
   def destroy
-    @pin.destroy
-    redirect_to root_path
+    if current_user == @pin.user
+      @pin.destroy
+      redirect_to root_path
+    else
+     flash[:danger] = "Wrong user!"
+     redirect_to @pin
+    end
   end
 
 
